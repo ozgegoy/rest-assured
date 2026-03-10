@@ -7,4 +7,5 @@ public class Routes {
     public static String getAllProductsList = baseUrl + "productsList";
     public static String getAllBrandsList = baseUrl + "brandsList";
     public static String postSearchProduct = baseUrl + "searchProduct";
+    public static String postCreateAccount = baseUrl + "createAccount";
 }
