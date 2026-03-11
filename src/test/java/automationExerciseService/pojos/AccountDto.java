@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CreateUpdateAccountDto {
+public class AccountDto {
     private String name;
     private String email;
     private String password;

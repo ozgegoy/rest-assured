@@ -31,4 +31,13 @@ public class AutomationExerciseGetEndpoints {
                 .when()
                 .post(Routes.postSearchProduct);
     }
+
+    public static Response getUserDetailByEmail(String email) {
+        return given()
+                .contentType(ContentType.URLENC)
+                .accept(ContentType.JSON)
+                .queryParam("email", email)
+                .when()
+                .get(Routes.getUserDetailByEmail);
+    }
 }
