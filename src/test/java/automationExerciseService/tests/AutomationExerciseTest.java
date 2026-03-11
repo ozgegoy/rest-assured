@@ -8,76 +8,75 @@ import automationExerciseService.pojos.AccountDto;
 import automationExerciseService.testDatas.AccountTestData;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
-
-import static org.testng.Assert.assertEquals;
+import utils.ResponseAssertions;
 
 public class AutomationExerciseTest {
 
     @Test(priority = 1)
     void getAllProductsListTest() {
         Response response = AutomationExerciseGetEndpoints.getAllProductsList();
-        assertEquals(response.getStatusCode(), 200);
+        ResponseAssertions.assertResponseOk(response);
     }
 
     @Test(priority = 2)
     void getAllBrandsListTest() {
         Response response = AutomationExerciseGetEndpoints.getAllBrandsList();
-        assertEquals(response.getStatusCode(), 200);
+        ResponseAssertions.assertResponseOk(response);
     }
 
     @Test(priority = 3)
     void postSearchProductTest() {
         Response response = AutomationExerciseGetEndpoints.postSearchProduct("jean");
-        assertEquals(response.getStatusCode(), 200);
+        ResponseAssertions.assertResponseOk(response);
     }
 
     @Test(priority = 4)
     void postCreateAccount() {
         AccountDto accountDto = AccountTestData.createAccountTestData();
         Response response = AutomationExerciseCreateEndpoints.postCreateAccount(accountDto);
-        assertEquals(response.getStatusCode(), 200);
-        assertEquals(response.jsonPath().get("message"), "User created!");
+        ResponseAssertions.assertResponseOk(response);
+        ResponseAssertions.assertMessage(response, "User created!");
     }
 
     @Test(priority = 5)
     void postVerifyLogin() {
-        AccountDto accountDto = AccountTestData.verifyLoginTestData();
+        AccountDto accountDto = AccountTestData.accountCredentials();
         Response response = AutomationExerciseCreateEndpoints.postVerifyLogin(accountDto);
-        assertEquals(response.getStatusCode(), 200);
-        assertEquals(response.jsonPath().get("message"), "User exists!");
+        ResponseAssertions.assertResponseOk(response);
+        ResponseAssertions.assertMessage(response, "User exists!");
     }
 
     @Test(priority = 6)
     void getUserDetailByEmail() {
         String email = AccountTestData.createAccountTestData().getEmail();
         Response response = AutomationExerciseGetEndpoints.getUserDetailByEmail(email);
-        assertEquals(response.getStatusCode(), 200);
-        assertEquals(response.jsonPath().get("user.email"), email);
-        assertEquals(response.jsonPath().get("user.name"), AccountTestData.createAccountTestData().getName());
+        AccountDto createdAccount = AccountTestData.createAccountTestData();
+        ResponseAssertions.assertResponseOk(response);
+        ResponseAssertions.assertUserDetails(response, createdAccount);
     }
 
     @Test(priority = 7)
     void putUpdateAccount() {
         AccountDto accountDto = AccountTestData.updateAccountTestData();
         Response response = AutomationExerciseUpdateEndpoints.putUpdateAccount(accountDto);
-        assertEquals(response.getStatusCode(), 200);
-        assertEquals(response.jsonPath().get("message"), "User updated!");
+        ResponseAssertions.assertResponseOk(response);
+        ResponseAssertions.assertMessage(response, "User updated!");
     }
 
     @Test(priority = 8)
     void getUserDetailByEmailAfterUpdate() {
         String email = AccountTestData.createAccountTestData().getEmail();
         Response response = AutomationExerciseGetEndpoints.getUserDetailByEmail(email);
-        assertEquals(response.getStatusCode(), 200);
-        assertEquals(response.jsonPath().get("user.email"), email);
-        assertEquals(response.jsonPath().get("user.name"), AccountTestData.updateAccountTestData().getName());
+        AccountDto updatedAccount = AccountTestData.updateAccountTestData();
+        ResponseAssertions.assertResponseOk(response);
+        ResponseAssertions.assertUserDetails(response, updatedAccount);
     }
 
     @Test(priority = 9)
     void deleteAccount() {
-        AccountDto accountDto = AccountTestData.deleteAccountTestData();
+        AccountDto accountDto = AccountTestData.accountCredentials();
         Response response = AutomationExerciseDeleteEndpoints.deleteAccount(accountDto);
-        assertEquals(response.getStatusCode(), 200);
-        assertEquals(response.jsonPath().get("message"), "Account deleted!");
+        ResponseAssertions.assertResponseOk(response);
+        ResponseAssertions.assertMessage(response, "Account deleted!");
     }
 }
