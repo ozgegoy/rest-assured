@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Automation Exercise Service">
+    <test name="Automation Exercise Tests">
+        <classes>
+            <class name="automationExerciseService.tests.AutomationExerciseTest"/>
+        </classes>
+    </test>
+</suite>
