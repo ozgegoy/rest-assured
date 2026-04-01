@@ -1,8 +1,10 @@
 package automationExerciseService.endpoints;
 
+import config.ConfigReader;
+
 public class Routes {
 
-    public static String baseUrl = "https://automationexercise.com/api/";
+    public static String baseUrl = ConfigReader.getProperty("baseUrl");
 
     public static String getAllProductsList = baseUrl + "productsList";
     public static String getAllBrandsList = baseUrl + "brandsList";

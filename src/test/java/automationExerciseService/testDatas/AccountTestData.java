@@ -1,12 +1,13 @@
 package automationExerciseService.testDatas;
 
 import automationExerciseService.pojos.AccountDto;
+import config.ConfigReader;
 import utils.Methods;
 
 public class AccountTestData {
     private static final int randomNumber = Methods.getRandomNumber(1, 99);
-    private static final String EMAIL = "emaildeneme@gmail.com";
-    private static final String PASSWORD = "12345";
+    private static final String EMAIL = ConfigReader.getProperty("email");
+    private static final String PASSWORD = ConfigReader.getProperty("password");
 
     private static AccountDto baseAccountData() {
         AccountDto accountDto = new AccountDto();
